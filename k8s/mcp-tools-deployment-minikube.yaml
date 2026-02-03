@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcp-tools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mcp-tools
+  template:
+    metadata:
+      labels:
+        app: mcp-tools
+    spec:
+      initContainers:
+        - name: init-embeddings
+          image: mcp-tools:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+          args:
+            - |
+              set -e
+              echo "[init] listing /app/init-embeddings"
+              ls -l /app/init-embeddings
+              mkdir -p /app/embeddings
+              cp -r /app/init-embeddings/. /app/embeddings/
+              echo "[init] embeddings initialized"
+          volumeMounts:
+            - name: faiss-storage
+              mountPath: /app/embeddings
+      containers:
+        - name: mcp-tools
+          image: mcp-tools:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: faiss-storage
+              mountPath: /app/embeddings
+      volumes:
+        - name: faiss-storage
+          persistentVolumeClaim:
+            claimName: faiss-pvc

@@ -1,0 +1,16 @@
+{
+  "name": "lora_tool",
+  "description": "LoRA SFT inference tool",
+  "version": "1.0",
+  "python": {
+    "entrypoint": "lora_inference_new.py",
+    "function": "run_lora"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "prompt": { "type": "string" }
+    },
+    "required": ["prompt"]
+  }
+}

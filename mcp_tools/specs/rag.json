@@ -1,0 +1,21 @@
+{
+  "name": "rag_tool",
+  "description": "Retrieve relevant documents using FAISS + embedding and generate answer using Ollama.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": { "type": "string", "description": "User query string." }
+    },
+    "required": ["query"]
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "answer": { "type": "string", "description": "RAG generated answer." }
+    }
+  },
+  "python": {
+    "entrypoint": "rag_inference.py",
+    "function": "run_rag"
+  }
+}

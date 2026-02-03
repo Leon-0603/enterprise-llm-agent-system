@@ -1,0 +1,27 @@
+# --- Web ---
+fastapi
+uvicorn
+
+# --- Core ML ---
+torch
+transformers
+accelerate
+peft
+bitsandbytes
+sentence-transformers
+
+# --- Vector / RAG ---
+faiss-cpu
+
+# --- LangChain  ---
+langchain>=0.1.0
+langchain-community>=0.0.30
+langchain-core>=0.1.30
+
+# --- Ollama ---
+ollama
+
+# --- Utils ---
+numpy
+pydantic
+requests
